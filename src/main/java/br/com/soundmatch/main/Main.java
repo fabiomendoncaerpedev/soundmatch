@@ -5,8 +5,26 @@ import java.util.Scanner;
 public class Main {
     public void showMenu() {
         Scanner reading = new Scanner(System.in);
+        String renderedMenu = renderMenu();
+        Integer chosenOption = -1;
 
-        System.out.println("""
+        while (chosenOption != 0) {
+            System.out.println(renderedMenu);
+            chosenOption = reading.nextInt();
+
+            switch (chosenOption) {
+                default:
+                    System.out.println("Invalid Option");
+            }
+
+        }
+
+
+
+    }
+
+    private String renderMenu() {
+        return """
                 ################ SOUNDMATCH ###################
                 
                 1 - Register Artist
@@ -14,8 +32,8 @@ public class Main {
                 3 - List Musics
                 4 - Search Music by Artists
                 
-                """);
-
-
+                0 - Exit
+                
+                """;
     }
 }
