@@ -42,4 +42,12 @@ public class Artist {
     public void setType(ArtistType type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Artist{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type=" + type + '}';
+    }
 }
