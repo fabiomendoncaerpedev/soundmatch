@@ -2,16 +2,22 @@ package br.com.soundmatch.main;
 
 import br.com.soundmatch.models.Artist;
 import br.com.soundmatch.models.ArtistType;
+import br.com.soundmatch.models.Music;
 import br.com.soundmatch.repository.ArtistRepository;
+import br.com.soundmatch.repository.MusicRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     private Scanner reading = new Scanner(System.in);
     private ArtistRepository artistRepo;
+    private MusicRepository musicRepo;
 
-    public Main(ArtistRepository artistRepo) {
+    public Main(ArtistRepository artistRepo, MusicRepository musicRepo) {
         this.artistRepo = artistRepo;
+        this.musicRepo = musicRepo;
     }
 
     public void showMenu() {
@@ -25,11 +31,42 @@ public class Main {
             switch (chosenOption) {
                 case 1:
                     registerArtist();
+                    break;
+                case 2:
+                    registerMusic();
+                    break;
                 default:
                     System.out.println("Invalid Option");
             }
 
         }
+    }
+
+    private void registerMusic() {
+        List<Artist> artistList = new ArrayList<>();
+        Music music = new Music();
+        String artistName;
+
+        while (artistList.size() != 1) {
+            System.out.println("Enter Artist Name: ");
+            artistName = this.reading.next();
+
+            artistList = artistRepo.findByNameContainingIgnoreCase(artistName);
+
+            if (artistList.size() > 1) {
+                System.out.println("\nThe following Artists were retrieved by your search parameters:\n");
+                artistList.forEach(System.out::println);
+                System.out.println("\nPlease be more specific in your search...\n");
+            }
+        }
+
+        artistList.forEach(System.out::println);
+        System.out.println("Enter Music Name: ");
+        music.setName(this.reading.next());
+        music.setArtist(artistList.get(0));
+
+        musicRepo.save(music);
+        System.out.println("Music inserted successfully!!!");
     }
 
     private void registerArtist() {
