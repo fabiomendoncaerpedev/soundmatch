@@ -35,11 +35,19 @@ public class Main {
                 case 2:
                     registerMusic();
                     break;
+                case 3:
+                    listMusics();
+                    break;
                 default:
                     System.out.println("Invalid Option");
             }
 
         }
+    }
+
+    private void listMusics() {
+        List<Music> musicList = musicRepo.findAll();
+        musicList.forEach(System.out::println);
     }
 
     private void registerMusic() {

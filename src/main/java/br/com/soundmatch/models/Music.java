@@ -14,6 +14,15 @@ public class Music {
 
     public Music() {}
 
+    @Override
+    public String toString() {
+        return "Music{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", artist=" + artist.getName() +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }
