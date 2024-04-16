@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private Scanner reading = new Scanner(System.in);
-    private ArtistRepository artistRepo;
-    private MusicRepository musicRepo;
+    private final Scanner reading = new Scanner(System.in);
+    private final ArtistRepository artistRepo;
+    private final MusicRepository musicRepo;
 
     public Main(ArtistRepository artistRepo, MusicRepository musicRepo) {
         this.artistRepo = artistRepo;
@@ -23,7 +23,7 @@ public class Main {
 
     public void showMenu() {
         String renderedMenu = renderMenu();
-        Integer chosenOption = -1;
+        int chosenOption = -1;
 
         while (chosenOption != 0) {
             System.out.println(renderedMenu);
@@ -53,7 +53,6 @@ public class Main {
 
     private Artist searchArtist() throws NotFoundException {
         List<Artist> artistList = new ArrayList<>();
-        Music music = new Music();
         String artistName;
 
         while (artistList.size() != 1) {
