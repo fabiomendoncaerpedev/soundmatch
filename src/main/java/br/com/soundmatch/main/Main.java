@@ -39,10 +39,25 @@ public class Main {
                 case 3:
                     listMusics();
                     break;
+                case 4:
+                    listMusicsByArtist();
+                    break;
                 default:
                     System.out.println("Invalid Option");
             }
 
+        }
+    }
+
+    private void listMusicsByArtist() {
+        List<Music> musicList = new ArrayList<>();
+
+        try {
+            Artist artist = this.searchArtist();
+            musicList = musicRepo.findByArtist(artist);
+            musicList.forEach(System.out::println);
+        } catch (NotFoundException e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -109,7 +124,7 @@ public class Main {
                 1 - Register Artist
                 2 - Register Music
                 3 - List Musics
-                4 - Search Music by Artists
+                4 - List Musics by Artist
                 
                 0 - Exit
                 
