@@ -1,5 +1,6 @@
 package br.com.soundmatch.main;
 
+import br.com.soundmatch.exceptions.NotFoundException;
 import br.com.soundmatch.models.Artist;
 import br.com.soundmatch.models.ArtistType;
 import br.com.soundmatch.models.Music;
@@ -50,7 +51,7 @@ public class Main {
         musicList.forEach(System.out::println);
     }
 
-    private void registerMusic() {
+    private Artist searchArtist() throws NotFoundException {
         List<Artist> artistList = new ArrayList<>();
         Music music = new Music();
         String artistName;
@@ -65,16 +66,29 @@ public class Main {
                 System.out.println("\nThe following Artists were retrieved by your search parameters:\n");
                 artistList.forEach(System.out::println);
                 System.out.println("\nPlease be more specific in your search...\n");
+            } else if (artistList.isEmpty()) {
+                throw new NotFoundException("No artist was found with parameters provided!!!");
             }
         }
 
-        artistList.forEach(System.out::println);
-        System.out.println("Enter Music Name: ");
-        music.setName(this.reading.next());
-        music.setArtist(artistList.get(0));
+        return artistList.get(0);
+    }
 
-        musicRepo.save(music);
-        System.out.println("Music inserted successfully!!!");
+    private void registerMusic() {
+        Music music = new Music();
+
+        try {
+            Artist artist = this.searchArtist();
+            music.setArtist(artist);
+
+            System.out.println("Enter Music Name: ");
+            music.setName(this.reading.next());
+
+            musicRepo.save(music);
+            System.out.println("Music inserted successfully!!!");
+        } catch (NotFoundException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void registerArtist() {
