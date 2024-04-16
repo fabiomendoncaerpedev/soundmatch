@@ -42,8 +42,11 @@ public class Main {
                 case 4:
                     listMusicsByArtist();
                     break;
+                case 0:
+                    System.out.println("Closing application...\n");
+                    break;
                 default:
-                    System.out.println("Invalid Option");
+                    System.out.println("Invalid Option\n");
             }
 
         }
@@ -81,7 +84,7 @@ public class Main {
                 artistList.forEach(System.out::println);
                 System.out.println("\nPlease be more specific in your search...\n");
             } else if (artistList.isEmpty()) {
-                throw new NotFoundException("No artist was found with parameters provided!!!");
+                throw new NotFoundException("No artist was found with parameters provided!!!\n");
             }
         }
 
@@ -99,7 +102,7 @@ public class Main {
             music.setName(this.reading.next());
 
             musicRepo.save(music);
-            System.out.println("Music inserted successfully!!!");
+            System.out.println("Music inserted successfully!!!\n");
         } catch (NotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -114,7 +117,7 @@ public class Main {
         artist.setType(ArtistType.fromPortuguese(this.reading.next()));
 
         this.artistRepo.save(artist);
-        System.out.println("Artist inserted successfully!!!");
+        System.out.println("Artist inserted successfully!!!\n");
     }
 
     private String renderMenu() {
